@@ -1,0 +1,8 @@
+FILTER: <input ng-model="search"></input>
+<div ng-repeat="comp in companies | filter:search" ng-model="search.company" class="companyListing">
+  <strong>{{ comp.company }}</strong> [{{comp.companyID}}]
+  <br>
+  Score: {{ comp.score }}
+  <br>
+  <a>Modify</a>
+</div>
