@@ -12,6 +12,7 @@
 </head>
 <body ng-app="SA-Admin">
   <div class="container" ng-controller="MainCtrl">
+    <ui-view></ui-view>
     <loader ng-show="loading"></loader>
     <company-listing companies=companies ng-hide="loading"></company-listing>
   </div>

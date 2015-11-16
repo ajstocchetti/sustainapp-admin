@@ -10,7 +10,7 @@ app.factory('CompanyFactory', function($http) {
   }
 
   function getOne(id) {
-    return $http.get('/company/'+ id)
+    return $http.get('/api/company/'+ id)
     .then( resp => resp.data)
   }
 })

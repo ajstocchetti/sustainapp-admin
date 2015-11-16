@@ -15,7 +15,7 @@ router.get('/:id', function(req, res) {
   var id = req.params.id;
   new Company( { companyID: id })
   .fetch({withRelated: ['categories', 'alias'], require: true})
-  .then(function(x) { res.send(x) })
+  .then(function(data) { res.json(data) })
   // Company.query({ where: { companyId: id }})
   // .fetchOne()
   //   // .then(function(company) {

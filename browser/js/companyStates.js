@@ -7,8 +7,10 @@ app.config(function($stateProvider) {
         $scope.company = company
       },
       resolve: {
-        company: function($stateParams) {
-          return $stateParams.companyID;
+        company: function($stateParams, CompanyFactory) {
+          return CompanyFactory.getOne($stateParams.companyID)
+          .then(function(c) { return c })
+          // .then(function(c) { return "ANDY"})
         }
       }
   })
