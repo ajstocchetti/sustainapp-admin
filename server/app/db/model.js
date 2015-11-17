@@ -1,4 +1,4 @@
-var knex = require('../../config.js').knexConf;
+var knex = require('./knexConfig.js').knex;
 var bookshelf = require('bookshelf')(knex);
 
 var Company = bookshelf.Model.extend({

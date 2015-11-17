@@ -3,7 +3,7 @@ var router = require('express').Router();
 module.exports = router;
 
 var path = require('path');
-var Company = require(path.join(__dirname, '../model.js')).Company;
+var Company = require(path.join(__dirname, '../db/model.js')).Company;
 
 router.get('/', function (req, res) {
   Company.fetchAll().then(function(data) {
