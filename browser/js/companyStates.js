@@ -14,5 +14,17 @@ app.config(function($stateProvider) {
         }
       }
   })
+  .state('companyListing', {
+    url: "/",
+    template: '<loader ng-show="loading"></loader><company-listing companies=companies ng-hide="loading"></company-listing>',
+    controller: function($scope, CompanyFactory) {
+      $scope.loading = true;
+      CompanyFactory.all()
+      .then(function(companies) {
+        $scope.companies = companies;
+        $scope.loading = false;
+      });
+    }
+  })
 
 });
