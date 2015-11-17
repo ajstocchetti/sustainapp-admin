@@ -5,7 +5,9 @@ var babel = require('gulp-babel');
 var concat = require('gulp-concat');
 var eslint = require('gulp-eslint');
 var livereload = require('gulp-livereload');
+var ngAnnotate = require('gulp-ng-annotate');
 var minify = require('gulp-minify');  // minify makes two files - one is minified, one is not
+var minifyCSS = require('gulp-minify-css');
 var plumber = require('gulp-plumber');
 var runSeq = require('run-sequence');
 var sass = require('gulp-sass');
@@ -29,7 +31,7 @@ gulp.task('lintJS', function () {
 });
 
 // Angular & other JS
-gulp.task('ng-compile', ['lintJS'],function() {
+gulp.task('ng-compile', ['lintJS'], function() {
   return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
   .pipe(plumber())
   .pipe(babel()) // babel here to see what file any error is in
@@ -39,11 +41,11 @@ gulp.task('ng-compile', ['lintJS'],function() {
 });
 
 gulp.task('ng-prod', ['lintJS'], function() {
-  return gulp.src(['./browser/js/*.js', './browser.js/**/*.js'])
+  return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
   .pipe(concat('ng-app.js'))
   .pipe(babel())
   .pipe(ngAnnotate())
-  .pipe(uglify())
+  // .pipe(uglify())  // i wish i could get uglify to work...
   .pipe(gulp.dest('./public/js/'))
 });
 
