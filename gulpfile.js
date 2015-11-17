@@ -45,7 +45,7 @@ gulp.task('ng-prod', ['lintJS'], function() {
   .pipe(concat('ng-app.js'))
   .pipe(babel())
   .pipe(ngAnnotate())
-  // .pipe(uglify())  // i wish i could get uglify to work...
+  .pipe(uglify())  // doesnt work with ES6 arrow functions
   .pipe(gulp.dest('./public/js/'))
 });
 

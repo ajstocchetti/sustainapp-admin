@@ -6,11 +6,13 @@ app.factory('CompanyFactory', function($http) {
 
   function getAll() {
     return $http.get('/api/company')
-    .then( resp => resp.data)
+    .then( function(resp) { return resp.data });
+    // .then( resp => resp.data)
   }
 
   function getOne(id) {
     return $http.get('/api/company/'+ id)
-    .then( resp => resp.data)
+    .then( function(resp) { return resp.data });
+    // .then( resp => resp.data)
   }
 })
