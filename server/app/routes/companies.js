@@ -22,3 +22,22 @@ router.get('/:id', function(req, res) {
     //   res.send(company);
     // })
 })
+
+router.patch('/:id/name', function(req, res) {
+  if(!req.body.name) {
+    return res.status(500).send("No name provided");
+  }
+
+  Company.forge({ companyId: req.params.id })
+  .fetch({ require: true })
+  .then(function(company) {
+    company.save({ company: req.body.name })
+    .then(function() { res.sendStatus(200) })
+    .catch(function(err) {
+      res.status(500).send(err)
+    })
+  })
+  .catch(function(err) {
+    res.status(500).send(err)
+  })
+})

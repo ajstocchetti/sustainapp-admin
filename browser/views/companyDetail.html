@@ -1,3 +1,17 @@
 <div>
-  <pre>{{ company | json }}</pre>
+  Display Name: <strong>{{ company.company }}</strong>
+  <br>
+  Update Name: <input type="text" name="updateName" ng-model="textName">
+  <button type="submit" ng-click="updateName(textName)">Save</button>
+  <br>
+  ID: {{ company.companyID }}
+  <br>
+  Aliases:
+  <ul>
+    <li ng-repeat="alias in company.alias">{{ alias.alias }}</li>
+  </ul>
+  Categories:
+  <ul>
+    <li ng-repeat="cat in company.categories">{{ cat.title }}</li>
+  </ul>
 </div>

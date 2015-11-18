@@ -1,5 +1,4 @@
-var knex = require('./knexConfig.js').knex;
-var bookshelf = require('bookshelf')(knex);
+var bookshelf = require('./bookshelf-config.js')
 
 var Company = bookshelf.Model.extend({
   tableName: 'EllisJonesScores',

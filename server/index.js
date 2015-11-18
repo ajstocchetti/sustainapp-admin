@@ -8,6 +8,7 @@
 
 */
 
+require('dotenv').load();
 // require('babel/register');
 // not using babel
 require('./main.js');
