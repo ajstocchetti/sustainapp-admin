@@ -26,7 +26,10 @@ var Category = bookshelf.Model.extend({
   companies: function() {
     return this.belongsToMany(Company, 'company_category', 'category_id', 'company_id');
   }
+});
 
+var CompCat = bookshelf.Model.extend({
+  tableName: 'company_category'
 })
 
 // var CompCat = bookshelf.Model.extend({
@@ -37,5 +40,6 @@ var Category = bookshelf.Model.extend({
 module.exports = {
   Company: Company,
   Alias: Alias,
-  Category: Category
+  Category: Category,
+  CompCat: CompCat
 }

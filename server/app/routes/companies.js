@@ -6,6 +6,7 @@ var path = require('path');
 var Models = require(path.join(__dirname, '../db/model.js'))
 var Company = Models.Company;
 var Alias = Models.Alias;
+var Category = Models.Category;
 
 
 router.get('/', function (req, res) {
@@ -69,4 +70,15 @@ router.delete('/:id/alias/:aid', function(req, res) {
     .catch(function(err) { res.status(500).send(err) })
   })
   .catch(function(err) { res.status(500).send(err) })
+})
+
+
+router.delete('/:id/category/:catId', function(req, res) {
+  Models.CompCat.where({
+    company_id: req.params.id,
+    category_id: req.params.catId
+  })
+  .destroy()
+  .then(function() { res.sendStatus(204); })
+  .catch(function(err) { res.status(500).send(err); })
 })

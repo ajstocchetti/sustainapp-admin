@@ -4,7 +4,8 @@ app.factory('CompanyFactory', function($http) {
     getOne: getOne,
     updateName: updateName,
     addAlias: addAlias,
-    removeAlias: removeAlias
+    removeAlias: removeAlias,
+    removeCategory: removeCategory
   };
 
   function getAll() {
@@ -20,14 +21,18 @@ app.factory('CompanyFactory', function($http) {
   }
 
   function updateName(id, name) {
-    return $http.patch('/api/company/'+id+'/name', { name: name })
+    return $http.patch('/api/company/'+id+'/name', { name: name });
   }
 
   function addAlias(id, alias) {
-    return $http.post('/api/company/'+id+'/alias', { alias: alias })
+    return $http.post('/api/company/'+id+'/alias', { alias: alias });
   }
 
   function removeAlias(id, alias) {
-    return $http.delete('/api/company/'+id+'/alias/'+alias)
+    return $http.delete('/api/company/'+id+'/alias/'+alias);
+  }
+
+  function removeCategory(id, catId) {
+    return $http.delete('/api/company/'+id+'/category/'+catId);
   }
 })

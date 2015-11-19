@@ -3,9 +3,19 @@ app.config(function($stateProvider) {
     .state('company', {
       url: "/company/:companyID",
       templateUrl: "/views/companyDetail.html",
-      controller: function($scope, CompanyFactory, company) {
+      resolve: {
+        company: function($stateParams, CompanyFactory) {
+          return CompanyFactory.getOne($stateParams.companyID)
+          .then(function(c) { return c })
+        },
+        categories: function(CategoryFactory) {
+          return CategoryFactory.all().then(function(c) { return c })
+        }
+      },
+      controller: function($scope, CompanyFactory, company, categories) {
         $scope.company = company;
         $scope.textName = company.company;
+        $scope.categories = categories;
 
         function clearUpdateErr() {
           $scope.updateErr = {};
@@ -41,11 +51,13 @@ app.config(function($stateProvider) {
           .catch(function(resp) { setUpdateErr("Alias", resp.data); })
         }
 
-      },
-      resolve: {
-        company: function($stateParams, CompanyFactory) {
-          return CompanyFactory.getOne($stateParams.companyID)
-          .then(function(c) { return c })
+        $scope.removeCategory = function(catIndex) {
+          clearUpdateErr();
+          CompanyFactory.removeCategory(company.companyID, $scope.company.categories[catIndex].pkey)
+          .then(function(resp) {
+            $scope.company.categories.pop(catIndex);
+          })
+          .catch(function(resp) { setUpdateErr("Category", resp.data )})
         }
       }
   })

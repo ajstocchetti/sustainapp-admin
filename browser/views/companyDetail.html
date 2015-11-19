@@ -20,9 +20,10 @@
   <br>
 
   Categories:
-  <ul>
-    <li ng-repeat="cat in company.categories">{{ cat.title }}</li>
-  </ul>
+  <div ng-repeat="(index, cat) in company.categories">
+    {{ cat.title }}
+    <img src="/images/remove.png" style="vertical-align:middle;cursor:pointer" ng-click="removeCategory(index)">
+  </div>
 
   <div ng-show="updateErr.type" class="errorDiv">
     {{ updateErr.type }} was not updated because:
@@ -30,5 +31,3 @@
     {{ updateErr.text }}
   </div>
 </div>
-
-<pre>{{company|json}}</pre>
