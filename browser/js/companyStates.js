@@ -6,10 +6,41 @@ app.config(function($stateProvider) {
       controller: function($scope, CompanyFactory, company) {
         $scope.company = company;
         $scope.textName = company.company;
-        $scope.updateName = function(name) {
-          CompanyFactory.updateName(company.companyID, $scope.textName)
-          .then(function(response) { alert(response.data) })
+
+        function clearUpdateErr() {
+          $scope.updateErr = {};
         }
+        function setUpdateErr(type, err) {
+          $scope.updateErr.type = type,
+          $scope.updateErr.text = err
+        }
+
+        $scope.updateName = function() {
+          clearUpdateErr();
+          CompanyFactory.updateName(company.companyID, $scope.textName)
+          .then(function(resp) { $scope.company.company = resp.data; })
+          .catch(function(resp) { setUpdateErr("Company name", resp.data); })
+        };
+
+        $scope.addAlias = function() {
+          clearUpdateErr();
+          CompanyFactory.addAlias(company.companyID, $scope.newAlias)
+          .then(function(resp) {
+            $scope.company.alias.push(resp.data);
+            $scope.newAlias = null;
+          })
+          .catch(function(resp) { setUpdateErr("Alias", resp.data); })
+        }
+
+        $scope.removeAlias = function(aliasIndex) {
+          clearUpdateErr();
+          CompanyFactory.removeAlias(company.companyID, $scope.company.alias[aliasIndex].pkey)
+          .then(function(resp) {
+            $scope.company.alias.pop(aliasIndex);
+          })
+          .catch(function(resp) { setUpdateErr("Alias", resp.data); })
+        }
+
       },
       resolve: {
         company: function($stateParams, CompanyFactory) {

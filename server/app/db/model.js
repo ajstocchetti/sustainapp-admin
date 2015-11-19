@@ -14,6 +14,7 @@ var Company = bookshelf.Model.extend({
 
 var Alias = bookshelf.Model.extend({
   tableName: 'companyAlias',
+  idAttribute: 'pkey',
   company: function() {
     return this.belongsTo(Company);
   }
@@ -35,6 +36,6 @@ var Category = bookshelf.Model.extend({
 
 module.exports = {
   Company: Company,
-  Alies: Alias,
+  Alias: Alias,
   Category: Category
 }
