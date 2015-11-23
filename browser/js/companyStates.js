@@ -46,16 +46,32 @@ app.config(function($stateProvider) {
           clearUpdateErr();
           CompanyFactory.removeAlias(company.companyID, $scope.company.alias[aliasIndex].pkey)
           .then(function(resp) {
-            $scope.company.alias.pop(aliasIndex);
+            $scope.company.alias.splice(aliasIndex, 1);
           })
           .catch(function(resp) { setUpdateErr("Alias", resp.data); })
+        }
+
+        $scope.addCategory = function(catIndex) {
+          if(!catIndex) {
+            return;
+          }
+          clearUpdateErr();
+          CompanyFactory.addCategory(company.companyID, catIndex)
+          .then(function(resp) {
+            // look up the title for the category we just added
+            var catData = $scope.categories.filter(function(entry) {
+              return entry.pkey == catIndex
+            });
+            $scope.company.categories.push(catData[0]);
+          })
+          .catch(function(resp) { setUpdateErr("Category", resp.data); })
         }
 
         $scope.removeCategory = function(catIndex) {
           clearUpdateErr();
           CompanyFactory.removeCategory(company.companyID, $scope.company.categories[catIndex].pkey)
           .then(function(resp) {
-            $scope.company.categories.pop(catIndex);
+            $scope.company.categories.splice(catIndex, 1);
           })
           .catch(function(resp) { setUpdateErr("Category", resp.data )})
         }

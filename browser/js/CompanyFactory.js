@@ -5,6 +5,7 @@ app.factory('CompanyFactory', function($http) {
     updateName: updateName,
     addAlias: addAlias,
     removeAlias: removeAlias,
+    addCategory: addCategory,
     removeCategory: removeCategory
   };
 
@@ -30,6 +31,10 @@ app.factory('CompanyFactory', function($http) {
 
   function removeAlias(id, alias) {
     return $http.delete('/api/company/'+id+'/alias/'+alias);
+  }
+
+  function addCategory(id, catId) {
+    return $http.post('/api/company/'+id+'/category', { category: catId });
   }
 
   function removeCategory(id, catId) {

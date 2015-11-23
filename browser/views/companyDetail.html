@@ -24,6 +24,11 @@
     {{ cat.title }}
     <img src="/images/remove.png" style="vertical-align:middle;cursor:pointer" ng-click="removeCategory(index)">
   </div>
+  <br>
+  <select ng-model="newCat">
+    <option ng-repeat="c in categories" value="{{ c.pkey }}">{{ c.title }}</option>
+  </select>
+  <button type="submit" ng-click="addCategory(newCat)">Add category</button>
 
   <div ng-show="updateErr.type" class="errorDiv">
     {{ updateErr.type }} was not updated because:

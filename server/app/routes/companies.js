@@ -73,6 +73,20 @@ router.delete('/:id/alias/:aid', function(req, res) {
 })
 
 
+router.post('/:id/category', function(req, res) {
+  if(!req.body.category) {
+    return res.status(500).send("No category provided");
+  }
+
+  Models.CompCat.forge({
+    company_id: req.params.id,
+    category_id: req.body.category
+  }).save()
+  .then(function(cat) { res.send(cat) })
+  .catch(function(err) { res.status(500).send(err) })
+})
+
+
 router.delete('/:id/category/:catId', function(req, res) {
   Models.CompCat.where({
     company_id: req.params.id,
